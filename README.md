@@ -1,6 +1,6 @@
 # Computer-Science
 ---
-1. Computer Architecture
+## 1. Computer Architecture
  - 컴퓨터의 구성
  - 중앙처리장치 CPU 동작 원리
  - 캐시 메모리(Cache memory)
@@ -10,7 +10,7 @@
 
 <br>
 
-2. Data Structure
+## 2. Data Structure
  - 배열
  - 연결 리스트
  - Array & ArrayList & LinkedList
@@ -24,7 +24,7 @@
 
 <br>
 
-3. Operating System
+## 3. Operating System
  - 운영체제란?
  - 프로세스와 스레드
  - 프로세스 주소 공간
@@ -43,7 +43,7 @@
 
 <br>
 
-4. Database
+## 4. Database
  - key
  - join
  - SQL injection
@@ -58,7 +58,7 @@
 
 <br>
 
-5. Network
+## 5. Network
  - OSI 7계층
  - TCP 3 & 4 way handshake
  - TCP/IP 흐름제어 & 혼잡 제어
@@ -72,7 +72,7 @@
 
 <br>
 
-6. Software Engineering
+## 6. Software Engineering
  - 클린 코드 & 리팩토링
  - 클린 코드 & 시큐어 코딩
  - 테스트 주도 개발 (TDD)
