@@ -1,0 +1,98 @@
+# System Call
+---
+- System Call : 시스템 호출해서 프로세스 동작시킴
+- 운영체제의 커널이 제공하는 서비스에 대해 응용프로그램의 요청에 따라 커널에 접근하기 위한 인터페이스
+- 걍 응용프로그램 요청하고 싶을때(CPU에 프로세스 할당하고 싶을때), 운영체제가 요청하는 명령어 같음
+
+<br>
+<br>
+   
+fork, exec, wait 3가지 명령어   
+- fork : 새로운 프로세스 생성, child는 parent와 동일한 동작을 수행함
+- exec : 새로운 프로세스 생성, child는 parent와 다른 동작을 수행함
+- wait : parent가 child를 생성하고, child가 끝날때까지 기다림
+
+<br>
+<br>
+
+## PID
+- 프로세스 식별자
+- UNIX 시스템에서 PID는 프로세스에게 명령할때 PID를 사용해서 명령함
+
+<br>
+<br>
+
+## fork
+- 프로세스 생성
+- fork 실행하면 프로세스가 하나 생성됨, 이때 생긴 프로세스가 child
+- fork를 실행시키는 프로세스는 parent
+- child는 parent와 동일한 복사본을 갖지만, PID는 다름( 동일한 작업을 수행하지만 프로세스 식별자는 다름 )
+
+<br>
+
+```py
+def main():
+	pid = getpid()
+	if rc = fork()
+
+	if rc<0:    # fork 실패, system 종료
+		exit(1)
+
+	elif rc==0: # child인 경우
+		print("child of {rc} = {pid}")
+
+	else:       # parent인 경우
+		print(f"parent of {rc} = {pid}")
+```
+- parent의 fork값 = child의 pid값
+- child의 fork값 = 0
+- fork값 = 해당 프로세스의 child의 pid값 ( child가 없으면 0 )
+- parent와 child 프로세스, 어떤 것을 먼저 수행할지는 CPU 스케줄러가 결정함 ( 작업 순서가 정해져 있지 않음 )
+
+<br>
+
+[이해 못한 부분]
+- 운영체제는 동일한 프로그램(프로세스) 2개가 동작한다고 생각함
+- 그래서 fork가 return될 차례라고 생각함(?)
+- 그래서 새로 생성된 프로세스는 main함수에서 시작하지 않고, if문부터 시작함
+
+<br>
+<br>
+
+
+## exec
+- fork와 동일하게 프로세스를 생성함
+- fork는 동일한 프로세스 내용을 여러번 동작할때 사용함
+- exec는 parent와 child가 다른 동작을 수행할때 사용함
+
+<br>
+
+```py
+rc = fork()
+
+# fork 실패
+if rc<0:
+	exit(1)
+
+# child인 경우 fork=0
+elif rc==0:
+	print(f"child의 pid : {getpid()}")
+	myargs = ['']*2
+	myargs[0] = 'wc'    # 실행 파일 이름
+	myargs[1] = 'p3.c'  # 실행할 파일 넘겨줄 argument
+	execvp(myargs[0], myargs) # wc 파일 실행.
+	print("this shouldn't print out") # execvp 함수 이후 어떤 명령어도 실행되지 않음. 즉 해당 print 문은 실행되지 않음
+
+# parent일때
+else:
+	wc = wait(NULL) # 추가된 부분(?)
+	print(f"{wc}의 parent ( wc : {rc} / pid : {getpid()} )")
+```
+- exec 실행하면, execvp(실행파일, 전달인자) 함수는 code segment 영역에서 실행 파일의 코드를 읽어와서 덮어 씌어줌
+- 그렇게 exec 실행한 후, heap, stack, memory 영역이 초기화 되고, 운영체제는 해당 프로세스를 실행함.
+- 즉 새로운 프로세스 생성이 아닌, 기존 프로세스를 초기화하고 data를 읽어와서 프로세스를 할당하는 것임
+- 그로 인해서 execvp 이후의 부분은 실행되지 않음
+
+
+<br>
+<br>
