@@ -82,8 +82,8 @@ CPU가 요청한 데이터가 캐시에 있으면 cache hit
 <br>
 
 ## 4. 구조 및 작동 방식
-1. Direct Mapped Cache
-![image](https://github.com/jiyeonnnny/Computer-Science/assets/139419091/0d718762-7dad-47a4-a050-f1633c13c03a)   
+1. Direct Mapped Cache   
+![image](https://github.com/jiyeonnnny/Computer-Science/assets/139419091/0d718762-7dad-47a4-a050-f1633c13c03a)      
 가장 기본 구조, DRAM의 여러 주소가 캐시 메모리의 한 주소에 대응되는 다대일 방식.   
 장점 : 가장 빠름
 단점 : confilct miss 발생하는 것
